@@ -1,0 +1,6 @@
+COUNT=1
+echo $COUNT
+COUNT=$((COUNT + 1))
+echo $COUNT
+COUNT=1
+echo $COUNT
