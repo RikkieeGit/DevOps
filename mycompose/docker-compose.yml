@@ -1,0 +1,25 @@
+services:
+  portfolio:
+    build: ../myapps
+    container_name: portfolio
+    ports:
+      - "8080:80"
+    depends_on:
+      - pyapp
+
+  pyapp:
+    build: ../python-app
+    container_name: pyapp
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - APP_PORT=8000
+
+  toolbox:
+    build: ../custom-ubuntu
+    container_name: toolbox
+    stdin_open: true
+    tty: true
+    volumes:
+      - ../scripts:/workspace/scripts
