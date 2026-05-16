@@ -2,8 +2,11 @@ name: Daily Health Report
 
 on:
   schedule:
-  - cron: '30 3 * * *'
+    - cron: '30 3 * * *'
   workflow_dispatch:
+
+permission:
+  contents: write
 
 jobs:
   health-check:
@@ -21,8 +24,8 @@ jobs:
           echo "Status: Server monitored via GitHub Actions" >> reports/latest.md
           echo "Workflow: Automated daily check" >> reports/latest.md
 
-     - name: Commit report
-       run: |
+      - name: Commit report
+        run: |
           git config user.name "RikkieeGit"
           git config user.email "yuvrajrelated@proton.me"
           git add reports/
