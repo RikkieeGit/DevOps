@@ -1,0 +1,30 @@
+name: Daily Health Report
+
+on:
+  schedule:
+  - cron: '30 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create report
+        run: |
+          mkdir -p reports
+          echo "# Health Report" >> reports/latest.md
+          echo "Date: $(date)" >> reports/latest.md
+          echo "Status: Server monitored via GitHub Actions" >> reports/latest.md
+          echo "Workflow: Automated daily check" >> reports/latest.md
+
+     - name: Commit report
+       run: |
+          git config user.name "RikkieeGit"
+          git config user.email "yuvrajrelated@proton.me"
+          git add reports/
+          git diff --staged --quiet || git commit -m "daily health report $(date '+%Y-%m-%d')"
+          git push
